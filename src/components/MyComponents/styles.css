@@ -1,0 +1,54 @@
+.ant-select:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    margin: 0;
+    height: 70px;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 10px;
+    /* appearance: none; */
+}
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    padding: 8px 24px;
+    border: none!important;
+    outline: none;
+    width: 250px;
+    height: 70px;
+    vertical-align: top;
+    background: #F4F5F7;
+    opacity: 0.8;
+    /* border: 1px solid #E7E8EA!important; */
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+    font: inherit;
+    letter-spacing: inherit;
+    color: currentColor;
+    padding: 10px 0 10px;
+    border: 0;
+    box-sizing: content-box;
+    background: none;
+    height: 1.4375em;
+    margin: 0;
+    -webkit-tap-highlight-color: transparent;
+    display: block;
+    min-width: 0;
+    border: none!important;
+    width: 100%;
+    -webkit-animation-name: mui-auto-fill-cancel;
+    animation-name: mui-auto-fill-cancel;
+    -webkit-animation-duration: 10ms;
+    animation-duration: 10ms;
+    padding: 20.5px 14px;
+}

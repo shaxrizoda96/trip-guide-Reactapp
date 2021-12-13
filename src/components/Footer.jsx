@@ -1,243 +1,108 @@
-import React from 'react'
-import styled from 'styled-components'
-
-const FooterCardWrapper = styled.div`
-width: 1170px;
-height: 248px;
-background: #3B71FE;
-border-radius: 16px;
-margin: 0 auto;
-padding: 62px 90px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-position: absolute;
-top: -19%;
-right: 15%;
-`
-const FooterCardLeft = styled.div`
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-`
-const FooterCardRight = styled.div`
-
-`
-const Title = styled.h1`
-font-family: Gilroy;
-font-style: normal;
-font-weight: 800;
-font-size: 44px;
-line-height: 52px;
-letter-spacing: -0.5px;
-color: #FFFFFF;
-`
-const Span = styled.span`
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 28px;
-color: #FFFFFF;
-opacity: 0.88;
-width: 360px;
-`
-
-const InputButton = styled.div`
-padding: 8px 8px 8px 22px;
-width: 488px;
-height: 71px;
-background: #FCFCFD;
-box-shadow: 10px 16px 60px -7px rgba(0, 0, 0, 0.04);
-border-radius: 4px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-`
-const Input = styled.input`
-border: none;
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-color: #B1B5C4;
-outline: none;
-`
-const Button = styled.button`
-padding: 18px 30.5px;
-background: #353945;
-box-shadow: 0px 12px 20px -5px rgba(23, 23, 126, 0.1);
-border-radius: 4px;
-border: none;
-outline: none;
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-text-align: center;
-letter-spacing: -0.02em;
-text-transform: capitalize;
-color: #FFFFFF;
-cursor: pointer;
-
-`
-const Wrapper = styled.div`
-position: relative;
-background: #F4F5F6;
-width: 100%;
-height: 602px;
-display: flex;
-justify-content: flex-end;
-align-items: flex-end;
-padding-bottom: 100px;
-margin-top: 260px;
-`
-
-const FooterLinks = styled.div`
-width: 1055px;
-height: 227px;
-display: flex;
-justify-content: space-between;
-margin: 0 auto;
-`
-const TitleFooter = styled.div`
-font-family: Open Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 20px;
-line-height: 27px;
-color: #222529;
-`
-const Section = styled.div`
-display: flex;
-flex-direction: column;
-
-`
-const P = styled.p`
-font-family: DM Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 24px;
-color: #84878B;
-width: 254px;
-`
+import {useTranslation} from 'react-i18next'
+import styled, { ThemeContext } from 'styled-components';
+import { Container, ButtonChangeSun, ButtonChangeMoon, FooterSection, TripGuide } from "../styled"
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 const Logo = styled.div`
 display: flex;
 align-items: center;
-padding-bottom: 20px;
 `
-const SectionTitle = styled.h3`
-font-family: DM Sans;
-font-style: normal;
+const FooterSides = styled.div`
+display:flex;
+justify-content: space-between;
+padding-top: 231px;
+`
+
+const FooterText = styled.p`
+font-size: 16px;
+line-height: 24px;
+color:${(props) => props.theme.footerText};
+max-width: 254px;
+margin-top: 25px;
+`
+ const Theme = styled.h4`
 font-weight: 500;
 font-size: 24px;
 line-height: 36px;
-color: #222529;
+color: ${(props) => props.theme.footerThemecolor};
 `
-const SectionSpan = styled.a`
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
+
+const Ul = styled.ul`
+list-style: none;
+
+`
+const Li = styled.li`
 font-size: 16px;
+font-weight: 500;
 line-height: 24px;
-color: #84878B;
-padding-bottom: 16.06px;
+letter-spacing: 0em;
+color:${(props) => props.theme.footerliColor};
+margin-bottom:16px;
+margin-top: 18px;
 `
 
-
-const Footer = () => {
-    return (
-       
-            
-
-
-
-        <Wrapper>
-            <FooterCardWrapper>
-                <FooterCardLeft>
-                    <Title>Get our pro offers </Title>
-                    <Span>Create a visual identity for your company, and an overall brand</Span>
-                </FooterCardLeft>
-
-                <FooterCardRight>
-
-                    <InputButton>
-                    <Input type="search" placeholder="Type your email here"/>
-                    <Button>
-                        Subscribe
-                    </Button>
-
-                    
-                    </InputButton>
-
-                </FooterCardRight>
-                
-            </FooterCardWrapper>
-
-
-        <FooterLinks>
-            <Section>
-            <Logo>
-            <img style={{marginRight: '10px'}} src="/assets/header-logo.png" alt="header_logo" />
-            <TitleFooter>TripGuide</TitleFooter>
-            </Logo>
-
-            <P>This is the team that specializes in
-                making sure in the find it a 
-                your interior looks cool</P>
-            </Section>
-
-            <Section>
-                <SectionTitle>Services</SectionTitle>
-                <ul>
-                <li><SectionSpan> Travel Booking</SectionSpan></li>
-                <li><SectionSpan> Flight Booking</SectionSpan></li>
-                <li><SectionSpan> Car Booking</SectionSpan></li>
-                <li><SectionSpan> Fivestar Hotel</SectionSpan></li>
-                <li><SectionSpan> Traveling</SectionSpan></li>
-                </ul>
-            </Section>
-
-
-            <Section>
-               
-                <SectionTitle>Support</SectionTitle>
-                <ul>
-                <li><SectionSpan>Account</SectionSpan></li>
-                <li><SectionSpan>Legal</SectionSpan></li>
-                <li><SectionSpan>Contact</SectionSpan></li>
-                <li><SectionSpan>Terms & Condition</SectionSpan></li>
-                <li><SectionSpan>Privacy Policy</SectionSpan></li>
-                </ul>
-            </Section>
-
-
-            <Section>
-                
-                <SectionTitle>Business</SectionTitle>
-                <ul>
-                <li><SectionSpan>Success</SectionSpan></li>
-                <li><SectionSpan>About Locato</SectionSpan></li>
-                <li><SectionSpan>Blog</SectionSpan></li>
-                <li><SectionSpan>Information</SectionSpan></li>
-                <li><SectionSpan>Travel Guide</SectionSpan></li>
-                </ul>
-            </Section>
-
-
-            
-
-        </FooterLinks>
-
-
-
-        </Wrapper>
+const ButtonTheme = styled.button`
+background:${(props) => props.theme.footerButtonbg};
+border: 0.5px solid ${(props) => props.theme.footerButBorder};
+box-sizing: border-box;
+border-radius: 10px;
+padding: 5px;
+`
+const Footer = ()=>{
+    const {theme, toggleTheme} =  useContext(ThemeContext)
+    const {t} = useTranslation()
+    return(
+        <FooterSection>
+            <Container>
+                <FooterSides>
+                <div>
+                <Link to="/">
+                    <Logo>
+                        <img src="/assets/Subtract.png" alt="" />
+                        <TripGuide>TripGuide</TripGuide>
+                    </Logo>
+                </Link>
+                <FooterText>{t('footerText')}</FooterText>
+                    <ButtonTheme>
+                    <ButtonChangeSun onClick={()=> toggleTheme( 'dark' )}> <i className='icon-sun'></i></ButtonChangeSun>
+                    <ButtonChangeMoon onClick={()=> toggleTheme( 'light' )}><i className='icon-moon'></i></ButtonChangeMoon>
+                    </ButtonTheme>
+                </div>
+                <div>
+                    <Ul>
+                        <Theme>{t('footerTopTheme1')}</Theme>
+                        <Li>{t('service1')}</Li>
+                        <Li>{t('service2')} </Li>
+                        <Li>{t('service3')} </Li>
+                        <Li> {t('service4')}</Li>
+                        <Li>{t('service5')}</Li>
+                    </Ul>
+                </div>
+                <div>
+                    <Ul>
+                        <Theme>{t('footerTopTheme2')}</Theme>
+                        <Li>{t('support1')}</Li>
+                        <Li>{t('support2')}</Li>
+                        <Li>{t('support3')}</Li>
+                        <Li>{t('support4')}</Li>
+                        <Li>{t('support5')}</Li>
+                    </Ul>
+                </div>
+                <div>
+                    <Ul>
+                        <Theme>{t('footerTopTheme3')}</Theme>
+                        <Li>{t('business1')}</Li>
+                        <Li>{t('business2')}</Li>
+                        <Li>{t('business3')}</Li>
+                        <Li>{t('business4')}</Li>
+                        <Li>{t('business5')}</Li>
+                    </Ul>
+                </div>
+                </FooterSides>
+            </Container>
+        </FooterSection>
     )
-    }
+}
 
-
-export default Footer
+export default Footer;

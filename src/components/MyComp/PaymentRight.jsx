@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-import Image from '../../img/slide2.jpg'
+import {AiFillStar} from 'react-icons/ai';
+import {useTranslation} from 'react-i18next';
+import Image from '../../img/photo3.jpg';
 
 const Wrapper = styled.div`
 padding: 40px 35px 36px 35px;
@@ -8,7 +10,7 @@ background: #FFFFFF;
 border: 2px solid #E7ECF3;
 box-sizing: border-box;
 border-radius: 20px;
-margin: 0 30px;
+margin: 55px 30px;
 /* border: 2px solid red; */
 width: 445px;
 height: 899px;
@@ -27,7 +29,7 @@ line-height: 23px;
 color: #141416;
 padding-bottom :14px;
 `
-const Rate = styled.span`
+const AiStart = styled.span`
 padding-bottom: 26px;
 font-family: DM Sans;
 font-style: normal;
@@ -38,7 +40,6 @@ line-height: 21px;
 color: #222529;
 `
 const Image1 = styled.img`
-padding-bottom: 32px;
 /* border: 2px solid red; */
 background: #E7ECF3;
 /* border: 2px solid #E7ECF3; */
@@ -67,7 +68,7 @@ padding: 20px 20px 20px 0;
 `
 const CheckOne = styled.div`
 `
-const CheckInLab = styled.div`
+const CheckTitle = styled.div`
 font-family: DM Sans;
 font-style: normal;
 font-weight: 500;
@@ -155,46 +156,55 @@ margin-bottom: 36px;
 `
 
 const PaymentRight = () => {
+    const {t} = useTranslation();
     return (
         <Wrapper>
-            <Title>
-                <Text>Switzerland Hotels and Places to Stay </Text>
-                <Rate>4.8 (122 reviews)</Rate>
+            <Text>
+                <Title>{t('swisHotels')} </Title>
+                <AiStart> <AiFillStar style={{color:"#FFD166", marginRight: '8px'}}/>4.8 (122 reviews)</AiStart>
                 <Image1 src={Image} alt=""/>
-            </Title>
+            </Text>
 
             <Info>
-                <Rooms>1 bedroom  +  1 private room</Rooms>
+                <Rooms>{t('rooms')}</Rooms>
+                    <Checks>
+                        <CheckOne>
+                            <CheckTitle> {t('check1')}</CheckTitle>
+                            <CheckText>{t('checked1')} </CheckText>
+                        </CheckOne>
+                        <CheckOne>
+                            <CheckTitle>{t('check2')}</CheckTitle>
+                            <CheckText>{t('checked2')} </CheckText>
+                        </CheckOne>
+                    </Checks>
 
-                <Checks>
-                    <CheckOne>
-                        <CheckInLab>Check in</CheckInLab>
-                        <CheckText>June 27, 2020 </CheckText>
-                    </CheckOne>
-                    <CheckOne>
-                        <CheckInLab>Check out</CheckInLab>
-                        <CheckText>June 30, 2020  </CheckText>
-                    </CheckOne>
-                </Checks>
-
-                <CheckTwo>
-                        <CheckInLab>Guest</CheckInLab>
-                        <CheckText>2 guests  </CheckText>
-                </CheckTwo>
+                    <CheckTwo>
+                            <CheckTitle>{t('check2')}</CheckTitle>
+                            <CheckText>{t('checked2')} </CheckText>
+                    </CheckTwo>
             </Info>
 
             <Details>
-                <BookTitle>Booked details</BookTitle>
+                <BookTitle>{t('fare')}</BookTitle>
+                    <Days>
+                        <DaysSpan>$119  +  {t('checkedOther1')}</DaysSpan>
+                        <DaysPrice>$833</DaysPrice>
+                    </Days>
+                    <Days>
+                        <DaysSpan>{t('checkedOther2')}</DaysSpan>
+                        <DaysPrice>-$125</DaysPrice>
+                    </Days>
+                    <Days>
+                        <DaysSpan>{t('checkedOther3')}</DaysSpan>
+                        <DaysPrice>$103</DaysPrice>
+                    </Days>
+                    <Total>
+                        <TotalSpan>{t('checkedOther4')}</TotalSpan>
+                        <DaysPrice>$833</DaysPrice>
+                    </Total>
 
-                <Days><DaysSpan>$119  +  5nights</DaysSpan><DaysPrice>$833</DaysPrice></Days>
-                <Days><DaysSpan>Ocupancy text and fee</DaysSpan><DaysPrice>-$125</DaysPrice></Days>
-                <Days><DaysSpan>Service free</DaysSpan><DaysPrice>$103</DaysPrice></Days>
-                <Total><TotalSpan>Total</TotalSpan><DaysPrice>$833</DaysPrice></Total>
-
-                <Report>Report this property</Report>
+                <Report>{t('report')}</Report>
             </Details>
-
-            
         </Wrapper>
     )
 }

@@ -1,133 +1,116 @@
-import React from 'react'
+import React from 'react';
+import {useTranslation} from 'react-i18next';
 import styled from 'styled-components';
+import { Container,  SectionBg, IntroTheme, PlaceName } from '../styled';
 
-const Search = () => {
-
-    const Section = styled.section`
-    padding: 75px 0px;`
-
-    const Container = styled.div`
-    max-width: 1170px;
-    margin: 0 auto;`
-
-    const Title = styled.h2`
-    font-family: DM Sans;
-font-weight: bold;
-font-size: 48px;
-text-align: center;
-line-height: 70px;
-color: #23262F;
-
-    `
-    const Page = styled.p`
-    Width: 593px;
-    Height: 48px;
-    font-family: Poppins;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-margin: 0 auto 30px;
-line-height: 24px;
-align-item: center;
-text-align: center;
-color: #84878B;
+    
+    const Places = styled.section`
+    margin-top:70px;
+    margin-bottom: 82px;
 `
+    const PlaceText = styled.div`
+    text-align:center;
+    `
+    const IntroText = styled.p`
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    color: #84878B;
+    width: 593px;
+    margin: 0 auto;
+    `
     const Cards = styled.div`
-    display: flex;
-    justfay-content: speace-between;
+    display:flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 65px;
     `
     const Card = styled.div`
     width: 270px;
-    height: 202px;
+    border-radius: 10px;
     border: 1px solid #E7ECF3;
-box-sizing: border-box;
-border-radius: 10px;
-padding: 25px 30px;
-margin: 10px;`
+    padding: 30px;
+    margin-bottom: 30px;
+    &:hover {
+        {
+        background:  ${(props) => props.theme.cardHover};
+        box-shadow: 0px 20px 51px 0px #6060601A;
+    }`
 
-
-    const CardTitle = styled.h3`
-    font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 20px;
-line-height: 26px;
-color: #3B3E44;
-margin-bottom: 12px;
-
-`
     const CardPage = styled.p`
-    font-family: DM Sans;
-font-style: normal;
+    font-size: 14px;
 font-weight: 500;
-font-size: 14px;
 line-height: 21px;
+letter-spacing: 0em;
+text-align: left;
 color: #84878B;`
 
-const Img = styled. img`
-width: 70px;
-height: 70px;
-border-radius: 12px;
-margin-bottom: 18px;`
+    const Img = styled. img`
+    height: 70px;
+    width: 70px;
+    left: 330px;
+    top: 249.00244140625px;
+    border-radius: 10px;`
 
+const Search = () => {
+      const {t} = useTranslation();
+  
     return (
-        <div>
-            <Section>
+        <>
+            <SectionBg>
                 <Container>
-                    <Title>
-                    Search a best place in the world
-                    </Title>
-                    <Page>
-                    Whether you’re looking for places for a vacation. We are here to Guide you
-about the details you need to check in and ease your trips in advance
-                    </Page>
+                    <Places>
+                        <PlaceText>
+                        <IntroTheme>{t('besttitle')}</IntroTheme>
+                        <IntroText>{t('besttext')}</IntroText>
+                        </PlaceText>
                     <Cards>
                         <Card>
                             <Img src="/assets/1.png" alt="" />
-                            <CardTitle>Batu, East Java</CardTitle>
+                            <PlaceName>Batu, East Java</PlaceName>
                             <CardPage>86 Destinations</CardPage>
                         </Card>
                         <Card>
                             <Img src="/assets/2.png" alt="" />
-                            <CardTitle>Kuta</CardTitle>
+                            <PlaceName>Kuta</PlaceName>
                             <CardPage>86 Destinations</CardPage>
                         </Card>
                         <Card>
                             <Img src="/assets/3.png" alt="" />
-                            <CardTitle>Surabaya, East Java</CardTitle>
+                            <PlaceName>Surabaya, East Java</PlaceName>
                             <CardPage>86 Destinations</CardPage>
                         </Card>
                         <Card>
                             <Img src="/assets/4.png" alt="" />
-                            <CardTitle>Malang, East Java</CardTitle>
+                            <PlaceName>Malang, East Java</PlaceName>
                             <CardPage>186 Destinations</CardPage>
                         </Card>
                         <Card>
                             <Img src="/assets/5.png" alt="" />
-                            <CardTitle>Dieng, Central Java</CardTitle>
+                            <PlaceName>Dieng, Central Java</PlaceName>
                             <CardPage>86 Destinations</CardPage>
                         </Card>
                         <Card>
                             <Img src="/assets/6.png" alt="" />
-                            <CardTitle>Nusa Dua, Lombok</CardTitle>
+                            <PlaceName>Nusa Dua, Lombok</PlaceName>
                             <CardPage>86 Destinations</CardPage>
                         </Card>
                         <Card>
                             <Img src="/assets/7.png" alt="" />
-                            <CardTitle>Bandung, West Java</CardTitle>
+                            <PlaceName>Bandung, West Java</PlaceName>
                             <CardPage>86 Destinations</CardPage>
                         </Card>
                         <Card>
                             <Img src="/assets/8.png" alt="" />
-                            <CardTitle>Wakatobi, Sumatera</CardTitle>
+                            <PlaceName>Wakatobi, Sumatera</PlaceName>
                             <CardPage>186 Destinations</CardPage>
                         </Card>
                     </Cards>
-
+                    </Places>
                 </Container>
-            </Section>
-        </div>
+            </ SectionBg>
+        </>
     )
 }
 

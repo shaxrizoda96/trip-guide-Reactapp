@@ -1,171 +1,141 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { IoIosArrowBack , IoIosArrowForward } from 'react-icons/io';
+import {useTranslation} from 'react-i18next'
+import { Container, Theme , Calm, BtnSlider} from "../styled"
+import {useState, useEffect} from 'react'
+import styled, { ThemeContext } from 'styled-components';
+import React, { Component } from 'react';
+import apiCalls from '../config/api';
+import {Swiper, SwiperSlide} from 'swiper/react'
+import SwiperCore, {Navigation} from 'swiper'
 
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
-
-const Section = styled.div`
-background:#F5F5F5;
-padding: 75px 0px;`
-const Container = styled.div`
-max-width: 1170px;
-margin: 0 auto;`
-const Tour = styled.div`
-display: flex;
+const TopSectionText = styled.div`
+display:flex;
+align-items: center;
 justify-content: space-between;
-align-item: center;`
-const TopText = styled.div``
-const TopIcons = styled.div``
-
-const Title = styled.h2`
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 48px;
-line-height: 70px;
-letter-spacing: -0.005em;
-color: #141416;
-
 `
-const Page = styled.p`
-font-family: Poppins;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 24px;
-color: #777E90;
-`
-const Cards = styled.div`
-display: flex;
 
+const TopCountryTour = styled.section`
+margin-top:70px;
 `
-const Card = styled.div`
-Width: 369px;
-Height: 495px;
-position: relativ;
-background: linear-gradient(175.54deg, rgba(2, 0, 14, 0.13) 9.38%, rgba(42, 34, 101, 0) 47.26%, rgba(15, 11, 44, 0.6) 92.77%);
+
+
+const TopCards = styled.div`
+display:flex;
+`
+
+const TopTourCard = styled.div`
+position: relative;
+margin-top:61px;
+`
+
+const TopImg = styled.img`
+height: 495px;
+width: 369px;
 border-radius: 16px;
-margin-raight: 30px;`
-const CardsText = styled.div`
-padding: 30px;
+border-radius: 16px;
 `
-const Span = styled.span`
+
+const CountryName = styled.div`
+background: rgba(20, 20, 22, 0.2);
+padding:12px 27px;
 position: absolute;
-top: 10px;
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 20px;
-line-height: 26px;
+top:30px;
+left: 35px;
 color: #E9EBF3;
-padding: 12px 28px;
+font-size: 20px;
+font-weight: 700;
+line-height: 26px;
+letter-spacing: 0em;
+border-radius: 50px;
 `
-const CardTextTitle = styled.h3`
-position: absolute;
-bottom: 68px;
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
+
+const CountryBottom = styled.p`
 font-size: 34px;
+font-weight: 700;
 line-height: 44px;
 letter-spacing: -0.005em;
 color: #FCFCFD;
-text-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);`
-const CardTextPage = styled.p`
 position: absolute;
-bottom: 38px;
+bottom:66px;
+left: 35px;
+margin-bottom:0;
+`
+
+const PupularPlaces = styled.span`
 font-family: Poppins;
-font-style: normal;
-font-weight: normal;
 font-size: 16px;
+font-weight: 400;
 line-height: 24px;
+letter-spacing: 0em;
 color: #FCFCFD;
-opacity: 0.9;
+position: absolute;
+bottom:34px;
+left: 35px;
+color: #FCFCFD;
+margin-top:8px;
 `
 
 
-const TopTour = () => {
-    return (
-        <Section>
-            <Container>
-                <Tour>
-                    <TopText>
-                        <Title>Top Tour</Title>
-                        <Page>Keep calm & travel on</Page>
-                    </TopText>
-                    <TopIcons>
-                    <IoIosArrowBack style={{Width:'36px', height:'36px', marginRight:'20px', borderRadius:'60%', border: '1px solid #000', background:'#F4F5F6' }}/>
-                    <IoIosArrowForward style={{Width:'36px', height:'36px', marginRight:'20px', borderRadius:'60%', border: '1px solid #000', background:'#F4F5F6' }}/>
-                    </TopIcons>
-                   
-                </Tour>
-               
-                <Cards>
-                <Swiper 
-                    spaceBetween={30}
-                    slidesPerView={3}>
-                    <SwiperSlide> 
-                    <Card>
-                        <img src="/assets/tour.png" alt="" style={{Width: '369px', Height: '495px'}}/>
-                        <CardsText>
-                            <Span>Japan</Span>
-                            <CardTextTitle>Japan</CardTextTitle> 
-                            <CardTextPage>10 Popular Places</CardTextPage>  
 
-                        </CardsText>
-                    </Card>
-                    
-                    </SwiperSlide>
-                    <SwiperSlide>
-                    <Card>
-                        <img src="/assets/tour.png" alt="" style={{Width: '369px', Height: '495px'}}/>
-                        <CardsText>
-                            <Span>Japan</Span>
-                            <CardTextTitle>Japan</CardTextTitle> 
-                            <CardTextPage>10 Popular Places</CardTextPage>  
+const TopTour = ()=>{
+    const {t} = useTranslation();
 
-                        </CardsText>
-                    </Card>
-                    </SwiperSlide>
-                    <SwiperSlide> <Card>
-                        <img src="/assets/tour.png" alt="" style={{Width: '369px', Height: '495px'}}/>
-                        <CardsText>
-                            <Span>Japan</Span>
-                            <CardTextTitle>Japan</CardTextTitle> 
-                            <CardTextPage>10 Popular Places</CardTextPage>  
+   
+    const [tourList, setTourList] = useState([]);
+    const [error, setError] = useState('');
+    useEffect(() => {
 
-                        </CardsText>
-                    </Card>
-                    </SwiperSlide>
-                    <SwiperSlide> <Card>
-                        <img src="/assets/tour.png" alt="" style={{Width: '369px', Height: '495px'}} />
-                        <CardsText>
-                            <Span>Japan</Span>
-                            <CardTextTitle>Japan</CardTextTitle> 
-                            <CardTextPage>10 Popular Places</CardTextPage>  
+        const getTours = async () => {
+          try {
+              const data = await apiCalls.getTours();
+              setTourList(data);
+          } catch (error) {
+              setError(error.message);
+          }
+         
+        }
+        getTours();
+      },[]);
 
-                        </CardsText>
-                    </Card>
-                    </SwiperSlide>
-                    <SwiperSlide> <Card>
-                        <img src="/assets/tour.png" alt="" style={{Width: '369px', Height: '495px'}}/>
-                        <CardsText>
-                            <Span>Japan</Span>
-                            <CardTextTitle>Japan</CardTextTitle> 
-                            <CardTextPage>10 Popular Places</CardTextPage>  
+   const mappedTour = tourList.map( (el, i) => (
+    
+    <SwiperSlide>
+        <TopTourCard key={i}>
+            <TopImg src={el.photo}></TopImg>
+            <CountryName>{el.name}</CountryName>
+            <CountryBottom>{el.country}</CountryBottom>
+            <PupularPlaces>{el.place_count}  Popular Places</PupularPlaces>
+        </TopTourCard>
+    </SwiperSlide>
+   ))
+   SwiperCore.use([Navigation]);
+    return(
+        <Container>
+            <TopCountryTour>
 
-                        </CardsText>
-                    </Card>
-                    </SwiperSlide>
-                    
+                <TopSectionText>
+                    <div>
+                        <Theme>{t('topTour')}</Theme>
+                        <Calm>{t('calm')}</Calm>
+                    </div>
+                    <div>
+                        <BtnSlider className='swiper-prev'><i className='icon-leftside'></i></BtnSlider> 
+                        <BtnSlider className='swiper-next' ><i className='icon-rightside'></i></BtnSlider> 
+                    </div>
+                </TopSectionText>
+                <Swiper spaceBetween={30}  slidesPerView={3}loop modules= {{Navigation}}
+                    navigation={{
+                        nextEl: '.swiper-next',
+                        prevEl: '.swiper-prev'
+                    }}>
+                    <TopCards>
+                            {error ? error : mappedTour}
+                    </TopCards>
                 </Swiper>
-                    </Cards> 
-           
-                </Container>
-        </Section>
+            </TopCountryTour>
+        </Container>
     )
-}
+            }
 
 export default TopTour
+
+

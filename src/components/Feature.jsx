@@ -1,178 +1,304 @@
-import React from 'react';
-import styled from 'styled-components';
+import {useTranslation} from 'react-i18next'
+import  styled from "styled-components"
+import {Container , Theme, Text} from  "../styled"
 
 
 
-const Section = styled.section`
-background:#F5F5F5;
-padding: 52px 0px;
-`
-const Container = styled.div`
-max-width: 1170px;
-margin: 0 auto;`
-
-
-const Title = styled.h2`
-font-family: DM Sans;
-font-weight: 700;
-font-size: 48px;
-line-height: 70px;
-margin-bottom: 12px;
-color: #141416;`
-
-
-const Page = styled.p`
-font-family: Poppins;
-font-weight: 400;
-font-size: 16px;
-line-height: 24px;
-margin-bottom: 37px;
-color: #3B3E44;`
-
-const Boxs = styled.div`
-display: flex;
-justifay-content: space-between;`
-
-const BoxLeft = styled.div`
-
-`
-const BoxFirst = styled.div`
-border: 1px solid #000;
-background-image: url();
-width: 870px;
-height: 280px;
-background: linear-gradient(38.52deg, rgba(3, 3, 3, 0.54) -3.66%, rgba(6, 6, 6, 0) 45.57%);
-border-radius: 18px;
-margin-bottom: 30px;
-padding: 20px;
+const FeatureGrid = styled.div`
+  display: flex;
 `;
 
-const BoxSecond = styled.div`
-display: flex;
+const FeaturedLeft = styled.div`
+  margin-right: 30px;
+`;
+
+const FeaturedRight = styled.div`
+  position: relative;
+`;
+
+const Lefttopimg = styled.div`
+  width: 870px;
+  height: 280px;
+  margin-bottom: 30px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg, rgba(35, 35, 35, 0.58) 0%, rgba(196, 196, 196, 0) 100%);
+    border-radius: 15px
+}
+`;
+
+const Barselona = styled.img`
+border-radius: 18px;
+`
+const FeatureImg = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    background: linear-gradient(
+        45deg, rgba(35, 35, 35, 0.58) 0%, rgba(196, 196, 196, 0) 100%);
+    border-radius: 15px;
+}
+`;
+
+const BottomImages = styled.div`
+display:flex;
+justify-content: space-between;
 `
 
-const Boxes= styled.div`
-width: 408px;
-height: 408px;
-border: 1px solid #000;
-background: linear-gradient(2.01deg, rgba(35, 35, 35, 0.58) 13.14%, rgba(196, 196, 196, 0) 26.65%);
-border-radius: 20px;
-margin-right: 54px;
-padding: 20px;
-`
+const ImageRight = styled.img`
+  width: 270px;
+  height: 220px;
+  display: flex;
+  margin-bottom: 30px;
+  border-radius: 18px;
+`;
 
-const BoxRight = styled.div``
-
-
-const Box = styled.div`
-width: 270px;
-height: 220px;
-border: 1px solid #000;
-margin-bottom: 30px;
-background: linear-gradient(0.63deg, rgba(111, 130, 123, 0.48) 19.18%, rgba(31, 71, 56, 0) 39.64%);
-border-radius: 15px;
-padding: 20px;
-`
-const Span = styled.span`
+const BottomImg = styled.img`
+  width: 408px;
+  height: 408px;
+  margin-bottom: 30px;
+  border-radius: 18px;
+`;
+const FeatureSpan = styled.span`
+font-size: 18px;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: 0em;
+color: #FF543D;
+padding: 3px 20px;
 background: #FFFFFF;
 box-shadow: 0px 4px 10px rgba(40, 40, 40, 0.12);
 border-radius: 20px;
-margin-bottom: 144px;
-padding: 2px 20px;
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
+position: absolute;
+top: 20px;
+left: 20px;
+`
+
+const FeatureSpanSmall = styled.span`
 font-size: 18px;
+font-weight: 700;
 line-height: 24px;
+letter-spacing: 0em;
 color: #FF543D;
+padding: 3px 20px;
+background: #FFFFFF;
+box-shadow: 0px 4px 10px rgba(40, 40, 40, 0.12);
+border-radius: 20px;
+position: absolute;
+top: 20px;
+left: 20px;
+`
+const FeatureSpanSmall2 = styled.span`
+font-size: 18px;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: 0em;
+color: #FF543D;
+padding: 3px 20px;
+background: #FFFFFF;
+box-shadow: 0px 4px 10px rgba(40, 40, 40, 0.12);
+border-radius: 20px;
+position: absolute;
+top: 20px;
+left: 20px;
 `
 
 
+const ImageRight1 = styled.div`
+position:relative;
+&::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      45deg, rgba(35, 35, 35, 0.58) 0%, rgba(196, 196, 196, 0) 100%);
+  border-radius: 15px;
+  z-index: 99;
+}
+`
+const ImageRight2 = styled.div`
+position:relative;
+&::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      45deg, rgba(35, 35, 35, 0.58) 0%, rgba(196, 196, 196, 0) 100%);
+  border-radius: 15px;
+  z-index: 99;
+}
+`
+const ImageRight3 = styled.div`
+position:relative;
+&::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      45deg, rgba(35, 35, 35, 0.58) 0%, rgba(196, 196, 196, 0) 100%);
+  border-radius: 15px;
+  z-index: 99;
+}
+`
 
-const BoxTitle = styled.div`
-font-family: DM Sans;
-font-weight: 700;
+const TourInfo = styled.div`
+position: absolute;
+bottom: 50px;
+left:20px;
+`
+const ToursInfo = styled.div`
+position: absolute;
+bottom: 20px;
+left:20px;
+`
+
+const ToursName = styled.p`
+font-weight: bold;
 font-size: 40px;
 line-height: 24px;
 color: #FFFFFF;
+margin-bottom: 20px;
 `
-const BoxPage = styled.div``
-const Img = styled.img``
+
+const TourPage = styled.p`
+font-size: 24px;
+font-weight: 700;
+line-height: 24px;
+letter-spacing: 0em;
+color: #FFFFFF;
+margin-bottom: 12px;
+`
+const ToursNameSmall = styled.p`
+font-size: 18px;
+font-weight: 700;
+line-height: 20px;
+letter-spacing: 0em;
+color: #FFFFFF;
+margin-bottom: 6px;
+`
+
+const FeatureActiv = styled.span`
+font-size: 14px;
+font-weight: 400;
+line-height: 21px;
+letter-spacing: 0em;
+color: #FFFFFF;
+`
+
+const ActivitiesSmall = styled.span`
+font-size: 10px;
+font-weight: 400;
+line-height: 15px;
+letter-spacing: 0em;
+color: #FFFFFF;
+`
+const Avatar1 = styled.img`
+border-radius: 50%;
+`
+const Avatar = styled.img`
+border-radius: 50%;
+`
+
+const Feature=()=>{
+    const {t} = useTranslation()
+    return(
+      <Container>
+          <section>
+            <Theme>{t('featuredtheme')}</Theme>
+            <Text>{t('featuedtext')}</Text>
+          </section>
+          <FeatureGrid>
+                <FeaturedLeft>
+                  <Lefttopimg>
+                    <Barselona src='/assets/barcelona.jpg'/>
+                    <FeatureSpan>3.5</FeatureSpan>
+                    <ToursInfo>
+                      <ToursName>{t('tourname')}</ToursName>
+                      <FeatureActiv> <Avatar1 src='/assets/avataractivitie.jpg'/> 196{t('touractivitie')} </FeatureActiv>
+                    </ToursInfo>
+                  </Lefttopimg>
+                      <BottomImages>
+                        <FeatureImg>
+                          <BottomImg src='/assets/london.jpg'/>
+                          <FeatureSpan>3.5</FeatureSpan>
+                            <TourInfo>
+                                <TourPage> {t('toursNameMifddle')}</TourPage>
+                                <FeatureActiv><Avatar src='/assets/activite2.jpg'/> 196{t('touractivitie')}</FeatureActiv>
+                            </TourInfo>
+                        </FeatureImg>
+                        <FeatureImg>
+                            <BottomImg src='/assets/australia.jpg'/>
+                            <FeatureSpan>3.5</FeatureSpan>
+                            <TourInfo>
+                                <TourPage> {t('toursNameMifddle2')}</TourPage>
+                                <FeatureActiv ><Avatar src='/assets/activite2.jpg'/> 196 {t('touractivitie')}</FeatureActiv>
+                            </TourInfo>
+                        </FeatureImg>
+                      </BottomImages>
+                </FeaturedLeft>
 
 
+                
+                <FeaturedRight>
+                  <ImageRight1>
+                    <ImageRight src='/assets/australia2.jpg'/>
+                    <FeatureSpanSmall>3.5</FeatureSpanSmall>
+                    <ToursInfo>
+                        <ToursNameSmall>{t('TourPage2')}</ToursNameSmall>
+                        <ActivitiesSmall><Avatar src='/assets/activite2.jpg'/> 196 {t('touractivitie')}</ActivitiesSmall>
+                    </ToursInfo>
+                  </ImageRight1>
 
 
-const Featured = () => {
-    
+                  <ImageRight2>
+                    <ImageRight src='/assets/japan1.jpg'/>
+                    <FeatureSpanSmall2>3.5</FeatureSpanSmall2>
+                    <ToursInfo>
+                        <ToursNameSmall>{t('toursNameSmall')}</ToursNameSmall>
+                        <ActivitiesSmall><Avatar src='/assets/activite2.jpg'/> {t('touractivitie')}</ActivitiesSmall>
+                    </ToursInfo>
+                  </ImageRight2>
 
 
-    return (
-        <div>
-            <Section>
-                <Container>
-                    <Title>
-                    Featured Destinations
-                    </Title>
-                    <Page>
-                    Popular destinations open to visitors from Indonesia
-                    </Page>
-                    <Boxs>
-                        <BoxLeft>
-                            <BoxFirst > 
-                                <Span>3.5</Span>
-                                <BoxTitle>Barcelona Tour</BoxTitle>
-                                <Img src="/assets/active.svg" alt="" />
-                                <Page>196 Activities</Page>
-                            </BoxFirst>
-                            <BoxSecond>
-                                <Boxes>
-                                <Span>3.5</Span>
-                                <BoxTitle>London, United State</BoxTitle>
-                                <Img src="/assets/active2.svg" alt="" />
-                                <BoxPage>196 Activities</BoxPage>
-                                </Boxes>
+                  <ImageRight3>
+                    <ImageRight src='/assets/japan.jpg'/>
+                    <FeatureSpanSmall>3.5</FeatureSpanSmall>
+                    <ToursInfo>
+                        <ToursNameSmall> {t('toursNameSmall')}</ToursNameSmall>
+                        <ActivitiesSmall><Avatar src='/assets/activite2.jpg'/> 196 {t('touractivitie')}</ActivitiesSmall>
+                    </ToursInfo>
+                  </ImageRight3>
 
-                                <Boxes>
-                                <Span>3.5</Span>
-                                <BoxTitle>London, United State</BoxTitle>
-                                <Img src="/assets/active2.svg" alt="" />
-                                <BoxPage>196 Activities</BoxPage>
-                                </Boxes>
-                            </BoxSecond>
-                        </BoxLeft>
-
-
-                        <BoxRight>
-                            <Box>
-                                <Span>3.5</Span>
-                                <BoxTitle>Australia Tour</BoxTitle>
-                                <Img src="/assets/active2.svg" alt="" />
-                                <Page>196 Activities</Page>
-
-                            </Box>
-                            <Box>
-                                <Span>3.5</Span>
-                                <BoxTitle>Japan Tour</BoxTitle>
-                                <Img src="/assets/active2.svg" alt="" />
-                                <Page>196 Activities</Page>
-
-                            </Box>
-                            <Box>
-                                <Span>3.5</Span>
-                                <BoxTitle>Japan Tour</BoxTitle>
-                                <Img src="/assets/active2.svg" alt="" />
-                                <Page>196 Activities</Page>
-
-                            </Box>
-
-                        </BoxRight>
-                    </Boxs>
-
-                </Container>
-            </Section>
+                </FeaturedRight>
+            </FeatureGrid>
+          </Container>
             
-        </div>
+        
     )
 }
 
-export default Featured
+export default Feature;

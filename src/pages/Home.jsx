@@ -5,31 +5,31 @@ import Intro from '../components/Intro';
 import Search from '../components/Search';
 import Feature from '../components/Feature'
 import TopTour from '../components/TopTour';
-import Explore from '../components/Explore';
+import ExploreWorld from '../components/ExploreWorld';
 import Travel from '../components/Travel';
-
-const Box = styled.div`
-    width: 500px;
-    height: 100px;
-    border-radius: 8px;
-    background-color: ${(props) => props.theme.cardBg};
-    padding: 10px 20px;
-`;
-
+import SearchIntro from '../components/SearchIntro';
+import {ForBgColor} from '../styled';
+import Subscribe from '../components/Subscribe';
 const Home = () => {
     return (
-        <div>
-            <Intro />
-            <Search />
-            <Feature />
-            <TopTour/>
-            <Explore />
-            <Trending />
-            <Travel />
+        <section>
+            <ForBgColor>
+                <Intro />
+                <SearchIntro />
+                <Search />
+                <Feature />
+                <TopTour/>
+                <ExploreWorld />
+                </ForBgColor>
+                <Trending />
+                <Travel />
+                <ForBgColor>
+                <Subscribe/>
+            </ForBgColor>
           
-            {/* <Box>This is home page </Box> */}
             
-        </div>
+            
+        </section>
     );
 }
 

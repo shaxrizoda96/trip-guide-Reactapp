@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
-import styled from 'styled-components'
-import {MdSearch} from 'react-icons/md'
+import React, {useState} from 'react';
+import styled from 'styled-components';
+import {useTranslation} from 'react-i18next';
+import {MdSearch} from 'react-icons/md';
 
-const WholeWrapper = styled.div`
+const Wrapper = styled.div`
 width: 295px;
 /* border: 2px solid red; */
 
@@ -49,11 +50,12 @@ align-items: center;
 position: relative;
 `
 
-const Icon = styled.div`
+const SearchIcon = styled.i`
+color: #DADADA;
+font-size: 26px;
 position: absolute;
-top: 40%;
-left: 15%;
-
+right: 17px;
+top: 16px;
 `
 
 
@@ -86,11 +88,15 @@ height: 24px;
 
 
 `
-const CheckboxWrapper = styled.div`
+const WrapperBox = styled.div`
 display: flex;
 align-items: center;
 margin-bottom: 14px;
 
+`
+const CheckBoxText = styled.div`
+display: flex;
+justify-content: space-between;
 `
 const LabelCheckbox = styled.label`
 margin-bottom: 0;
@@ -116,17 +122,17 @@ cursor: pointer;
 `
 ////
 
-const Range = styled.div`
+const FilterCard = styled.div`
 width: 282px;
 height: 142px;
 border-bottom: 2px solid #E7ECF3;
 margin-bottom: 30px;
 `
-const RangeWrapper = styled.div`
+const FilterCardWrapper = styled.div`
 display: flex;
 align-items: center;
 `
-const RangeInputText = styled.input`
+const FilterCardInputText = styled.input`
 width: 60px;
 height: 32px;
 border: 2px solid #316BFF;
@@ -143,13 +149,13 @@ outline: none;
 
 `
 
-const RangeInputRange = styled.input`
+const FilterCardInputFilterCard = styled.input`
 width: 199px;
 height: 18px;
 margin-right: 17px;
 `
 
-const PriceRange = styled.div`
+const PriceFilterCard = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -180,7 +186,7 @@ border-bottom: 2px solid #E7ECF3;
 margin-bottom: 30px;
 `
 
-const Facilities = styled.div`
+const Separated = styled.div`
 width: 279px;
 height:289px;
 border-bottom: 2px solid #E7ECF3;
@@ -188,150 +194,179 @@ margin-bottom: 30px;
 
 
 `
+const Spans = styled.span`
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+color: #84878B;
+margin-left: 70px;
+`
 
 const Filter = () => {
 
+     const {t} = useTranslation()
     const [value, setValue] = useState(50)
     return (
-        <WholeWrapper>
-        <Div>
-        <Label htmlFor="in" > Search location or property</Label>
-        <InputWrapper><Input id="in" placeholder="Search location or property"/><Icon><MdSearch style={{width:'17px', height:'17px'}}/></Icon></InputWrapper>
-        </Div>
+        <Wrapper>
+            <Div>
+                <Label htmlFor="in" > {t('searchLoc')}</Label>
+                <InputWrapper>
+                    <Input type="search" placeholder={t('placeholderr')}/>
+                    <SearchIcon className='icon-search'></SearchIcon>
+                </InputWrapper>
+            </Div>
 
         <Popular>
-            <Title>Popular Filters</Title>
+            <Title>{t('popFil1')}</Title>
 
-            <CheckboxWrapper>
-            <Checkbox  id="hotel" type="checkbox"/>
-            <LabelCheckbox htmlFor="hotel">Hotels</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="hotel" type="checkbox"/>
+                <LabelCheckbox htmlFor="hotel">{t('label1')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="dinner" type="checkbox"/>
-            <LabelCheckbox htmlFor="dinner">Breakfast and Dinner</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="dinner" type="checkbox"/>
+                <LabelCheckbox htmlFor="dinner">{t('label2')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="free" type="checkbox"/>
-            <LabelCheckbox htmlFor="free">Free Cancellation</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="free" type="checkbox"/>
+                <LabelCheckbox htmlFor="free">{t('label3')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="pay" type="checkbox"/>
-            <LabelCheckbox htmlFor="pay">No prepayment</LabelCheckbox>
-            </CheckboxWrapper>
-           <Button>See More</Button>
+            <WrapperBox>
+                <Checkbox  id="pay" type="checkbox"/>
+                <LabelCheckbox htmlFor="pay">{t('label4')}</LabelCheckbox>
+            </WrapperBox>
+           <Button>{t('see')}</Button>
         </Popular>
 
-        <Range>
-            <Title>Price Range</Title>
-            <RangeWrapper>
-            <RangeInputRange type="range" value={value} onChange={e => setValue(e.target.value)}/>
-            <RangeInputText type="text" value={value} onChange={e => setValue(e.target.value)}/>
-            </RangeWrapper>
-            <PriceRange>
+        <FilterCard>
+            <Title>{t('popFil2')}</Title>
+            <FilterCardWrapper>
+                <FilterCardInputFilterCard type="FilterCard" value={value} onChange={e => setValue(e.target.value)}/>
+                <FilterCardInputText type="text" value={value} onChange={e => setValue(e.target.value)}/>
+            </FilterCardWrapper>
+            <PriceFilterCard>
                 <Span>$50</Span>
                 <Span>$150</Span>
-            </PriceRange>
-        </Range>
+            </PriceFilterCard>
+        </FilterCard>
 
 
         <Property>
-            <Title>Property Type</Title>
+            <Title>{t('popFil3')}</Title>
 
-            <CheckboxWrapper>
-            <Checkbox  id="hotels" type="checkbox"/>
-            <LabelCheckbox htmlFor="hotels">Hotels</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="hotels" type="checkbox"/>
+                <LabelCheckbox htmlFor="hotels">{t('label1')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="dinners" type="checkbox"/>
-            <LabelCheckbox htmlFor="dinners">Apertments</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="dinners" type="checkbox"/>
+                <LabelCheckbox htmlFor="dinners"> {t('label5')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="frees" type="checkbox"/>
-            <LabelCheckbox htmlFor="frees">Resort</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="frees" type="checkbox"/>
+                <LabelCheckbox htmlFor="frees">{t('label6')}</LabelCheckbox>
+            </WrapperBox>
 
             
-           <Button>See More</Button>
+           <Button>{t('see')}</Button>
         </Property>
 
         <Budget>
-            <Title>Your budget</Title>
+            <Title>{t('popFil4')}</Title>
 
-            <CheckboxWrapper>
-            <Checkbox  id="less" type="checkbox"/>
-            <LabelCheckbox htmlFor="less">Less than $75</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="less" type="checkbox"/>
+                <LabelCheckbox htmlFor="less">{t('label7')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="75" type="checkbox"/>
-            <LabelCheckbox htmlFor="75">$75 to 125</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="75" type="checkbox"/>
+                <LabelCheckbox htmlFor="75">{t('label8')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="125" type="checkbox"/>
-            <LabelCheckbox htmlFor="125">$125 to 200</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="125" type="checkbox"/>
+                <LabelCheckbox htmlFor="125">{t('label9')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="200" type="checkbox"/>
-            <LabelCheckbox htmlFor="200">$200 to $300</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="200" type="checkbox"/>
+                <LabelCheckbox htmlFor="200">{t('label10')}</LabelCheckbox>
+            </WrapperBox>
 
-            <CheckboxWrapper>
-            <Checkbox  id="much" type="checkbox"/>
-            <LabelCheckbox htmlFor="much">Greater than $300</LabelCheckbox>
-            </CheckboxWrapper>
+            <WrapperBox>
+                <Checkbox  id="much" type="checkbox"/>
+                <LabelCheckbox htmlFor="much">{t('label11')}</LabelCheckbox>
+            </WrapperBox>
         </Budget>
 
 
-        <Facilities>
-            <Title>Facilities</Title>
+        <Separated>
+            <Title>{t('popFil5')}</Title>
 
-            <CheckboxWrapper>
-            <Checkbox  id="out" type="checkbox"/>
-            <LabelCheckbox htmlFor="out">Outdoor Sports 108</LabelCheckbox>
-            </CheckboxWrapper>
-
-            <CheckboxWrapper>
-            <Checkbox  id="bar" type="checkbox"/>
-            <LabelCheckbox htmlFor="bar">Berbeque 141</LabelCheckbox>
-            </CheckboxWrapper>
-
-            <CheckboxWrapper>
-            <Checkbox  id="live" type="checkbox"/>
-            <LabelCheckbox htmlFor="live">Living Room 108</LabelCheckbox>
-            </CheckboxWrapper>
-
-            <CheckboxWrapper>
-            <Checkbox  id="room" type="checkbox"/>
-            <LabelCheckbox htmlFor="room">Room Service 108</LabelCheckbox>
-            </CheckboxWrapper>
-
-            <CheckboxWrapper>
-            <Checkbox  id="swim" type="checkbox"/>
-            <LabelCheckbox htmlFor="swim">Swimming Pool 141</LabelCheckbox>
-            </CheckboxWrapper>
-
-            <CheckboxWrapper>
-            <Checkbox  id="spa" type="checkbox"/>
-            <LabelCheckbox htmlFor="spa">Spa 108</LabelCheckbox>
-            </CheckboxWrapper>
-
+            <WrapperBox>
+                <CheckBoxText>
+                    <Checkbox  id="out" type="checkbox"/>
+                    <LabelCheckbox htmlFor="out">{t('label12')}</LabelCheckbox>
+                </CheckBoxText>
+                <Spans>108</Spans>
+            </WrapperBox>
             
 
+            <WrapperBox>
+                <CheckBoxText>
+                    <Checkbox  id="bar" type="checkbox"/>
+                    <LabelCheckbox htmlFor="bar">{t('label13')}</LabelCheckbox>
+                </CheckBoxText>
+                <Spans>141</Spans>
+            </WrapperBox>
             
-           <Button>See More</Button>
-        </Facilities>
+
+            <WrapperBox>
+                <CheckBoxText>
+                    <Checkbox  id="live" type="checkbox"/>
+                    <LabelCheckbox htmlFor="live">{t('label14')}</LabelCheckbox>
+                </CheckBoxText>
+                <Spans>108</Spans>
+            </WrapperBox>
+            
+
+            <WrapperBox>
+                <CheckBoxText>
+                    <Checkbox  id="room" type="checkbox"/>
+                    <LabelCheckbox htmlFor="room">{t('label15')}</LabelCheckbox>
+                </CheckBoxText>
+                <Spans>141</Spans>
+            </WrapperBox>
+           
+            <WrapperBox>
+                <CheckBoxText>
+                    <Checkbox  id="swim" type="checkbox"/>
+                    <LabelCheckbox htmlFor="swim">{t('label16')}</LabelCheckbox>
+                </CheckBoxText>
+                <Spans>108</Spans>
+            </WrapperBox>
+           
+
+            <WrapperBox>
+                <CheckBoxText>
+                    <Checkbox  id="spa" type="checkbox"/>
+                    <LabelCheckbox htmlFor="spa">{t('label17')}</LabelCheckbox>
+                </CheckBoxText>
+                <Spans>108</Spans>
+            </WrapperBox>
+            <Button>{t('see')}</Button>
+        </Separated>
         
         
         
             
-        </WholeWrapper>
+        </Wrapper>
     )
 }
 

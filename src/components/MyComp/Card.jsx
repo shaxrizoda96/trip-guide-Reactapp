@@ -1,276 +1,295 @@
-import React from 'react'
-import styled from 'styled-components'
-import TextField from '@mui/material/TextField';
-import DateRangePicker from '@mui/lab/DateRangePicker';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import Box from '@mui/material/Box';
-import { Checkbox} from 'evergreen-ui'
-import {Link} from 'react-router-dom'
+import styled, { ThemeContext } from 'styled-components';
+import {Link, Navigate, useNavigate } from "react-router-dom";
+import {useTranslation} from 'react-i18next'
+
+
 
 const Cards = styled.div`
+border: 1px solid ${(props) => props.theme.dropcontenborder};
+background:  ${(props) => props.theme.dropcontentbgColor};
 padding: 20px 46px 31px 46px;
-background: #FFFFFF;
-border: 1px solid #EAEAEA;
-box-sizing: border-box;
+width: 408px;
+height: 910px;
 border-radius: 20px;
 `
-const Span = styled.div`
-font-family: DM Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 18px;
-line-height: 23px;
-color: #B1B5C4;
+
+const PricesList = styled.div`
 display: flex;
+border-bottom: 1px solid  #E6E8EC;
+padding:15px;
 align-items: center;
 `
-const SpanPrice = styled.div`
-font-family: DM Sans;
-font-style: normal;
+const Price = styled.h1`
 font-weight: bold;
 font-size: 34px;
 line-height: 44px;
 letter-spacing: -0.005em;
-color: #141416;
-
+color: ${(props) => props.theme.priceColor};
+margin: 0;
 `
-const Top = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding-bottom: 17px;
-border-bottom: 2px solid #E6E8EC;
-`
-const Button = styled.div`
-padding: 6px 10px;
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-line-height: 18px;
-background: #145CE6;
-border-radius: 25px;
-color: #FFFFFF;
-`
-
-const Inner = styled.div`
-width: 316px;
-`
-const Checks = styled.div`
-padding:  20px 20px;
-`
-const Labels = styled.div`
-display: flex;
-justify-content: space-around;
-padding-bottom: 11px;
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 24px;
+const Night = styled.span`
 color: #84878B;
-
+padding-top: 10px;
 `
-const Guest = styled.div`
-padding-bottom: 11px;
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 24px;
-color: #777E91;
-
+const Price2 = styled.span`
+color: #B1B5C4;
+font-size: 18px;
+font-weight: 400;
+line-height: 23px;
+margin-left: 16px;
+margin-top: 16px;
 `
-const Select = styled.select`
-    width: 316px;
-    height: 44px;
-    /* padding: 15px; */
-    background: #F4F5F6;
-    border-radius: 10px;
-    outline: none;
-    border: none;
-    padding: 0 20px ;
-`
-const Option = styled.option`
-   background: #F4F5F6;
-    border-radius: 10px; 
-`
-
-const Features = styled.div`
-padding-top: 20px;
-`
-const Check = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: center;
-font-family: DM Sans;
-font-style: normal;
-font-weight: normal;
+const Discount = styled.span`
 font-size: 14px;
-line-height: 21px;
-color: #353945;
+font-style: normal;
+font-weight: 500;
+line-height: 18px;
+color: #FFFFFF;
+background: #145CE6;
+padding: 6px 12px;
+width: 80px;
+border-radius: 25px;
+margin-left: 50px;
 `
-const Price = styled.div`
-
-`
-
-const PriceSection = styled.div`
-
-`
-
-const CardPrice = styled.div`
-    padding: 2px 20px;
-    background: #F4F5F6;
-    border-radius: 10px;
-`
-const Text = styled.div`
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`
-const Total = styled.div`
+const Row = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 12px 15px 23px 0;
-
+margin-bottom: 14px;
 `
-const TotalSpan = styled.span`
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
+
+const Check = styled.p`
 font-size: 16px;
+font-weight: 500;
 line-height: 24px;
-color: #777E91;
+margin: 20px 0px 12px 0px;
+color: ${(props) => props.theme.checkColor};
 `
-
-const SpanPrices = styled.div`
-  font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 27px;
-text-align: right;
-color: #353945;
+const Dates = styled.div`
+display: flex;
+align-items: center;
 `
-
-const ButtonPayment = styled.div`
- font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 20px;
-line-height: 26px;
-padding: 11px 109px;
-background: #316BFF;
-border-radius: 12px;
-cursor: pointer;
-border: none;
+ const Calendar = styled.div`
+position: relative;
+background:${(props) => props.theme.inputBgColors};
+box-sizing: border-box;
+border-radius: 10px;
+width: 152px;
+padding: 12px 20px;
+&:nth-child(2){
+  margin-right: 9px;
+}
+`
+const DataInput = styled.input`
 outline: none;
-
-
-color: #FFFFFF;   
-
+width: 200px;
+background-color: transparent;
+border-width: initial;
+border-style: none;
+border-color: initial;
+border-image: initial;
+outline: none;
+padding-left: 20px;
 `
-const SpanText = styled.div`
-font-family: DM Sans;
-font-style: normal;
-font-weight: normal;
+const CalIcon = styled.i`
+position: absolute;
+top: 12px;
+left: 15px;
+color: #777E90;
+font-size: 20px;
+`
+const Guess = styled.div`
+position: relative;
+margin: 20px 0px 12px 0px;
+`
+const GuestInput = styled.input`
+Width :316px;
+background: ${(props) => props.theme.inputBgColors};
+border-radius: 10px;
+border: none;
+padding: 12px 14px;
+`
+const BottomIcon = styled.i`
+color: #353945;
+font-size: 10px;
+position: absolute;
+top: 60px;
+right: 20px;
+`
+const CardsName = styled.h4`
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+color: ${(props) => props.theme.guesExtraColor};
+`
+
+const Label = styled.label`
 font-size: 14px;
+font-weight: 400;
 line-height: 21px;
-padding-top: 12px;
-text-align: center;
-color: #777E91;
+color:  ${(props) => props.theme.labelColor};
 `
-const Card = () => {
 
-    
-    const [value, setValue] = React.useState([null, null]);
-    const [checked, setChecked] = React.useState(false);
-    const [checked1, setChecked1] = React.useState(false);
-    const [checked2, setChecked2] = React.useState(false);
-    const [checked3, setChecked3] = React.useState(false);
-    const [color, setColor] = React.useState('red')
-    return (
+const InputCheck = styled.input`
+height: 18px;
+width: 18px;
+border-radius: 4px;
+margin-right: 10px;
+`
+
+const Span = styled.span`
+font-family: Roboto;
+font-size: 14px;
+font-weight: 500;
+line-height: 27px;
+color: #B1B5C3;
+`
+
+const PricesLists = styled.div`
+width: 316px;
+border-radius: 10px;
+background: ${(props) => props.theme.inputBgColors};
+padding: 13px 20px;
+`
+const Chexbox = styled.div`
+// margin-right: 50px;
+`
+const PriceText = styled.p`
+font-size: 14px;
+font-weight: 400;
+line-height: 21px;
+color:  ${(props) => props.theme.labelColor};
+margin-bottom: 0;
+
+`
+const Span2 = styled.span`
+font-family: Roboto;
+line-height: 27px;
+color: ${(props) => props.theme.labelColor};
+`
+const Total = styled.p`
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+margin: 20px 0px 12px 0px;
+color: ${(props) => props.theme.guesExtraColor};
+`
+
+const Span3 = styled.span`
+font-family: Roboto;
+font-size: 16px;
+font-weight: 500;
+line-height: 27px;
+color: ${(props) => props.theme.labelColor};
+`
+const BookNow = styled.div`
+text-align: center;
+padding-bottom: 64px;
+`
+const Btn = styled(Link)`
+font-size: 20px;
+font-weight: 700;
+line-height: 26px;
+color: #FFFFFF;
+background: #316BFF;
+width: 360px;
+padding: 11px 104px;
+border-radius: 12px;
+border: none;
+
+`
+
+const Charged = styled.p`
+font-size: 14px;
+font-weight: 400;
+line-height: 21px;
+color: #777E90;
+margin-top: 20px;
+`
+const Card = (props)=>{
+
+      const {t} = useTranslation();
+     
+    return(
         <Cards>
-            <Inner>
-            <Top>
-                <Span><SpanPrice>$142</SpanPrice> /night $184</Span>
-                <Button>20% OFF</Button>
-            </Top>
-
-            <Checks>
-            <LocalizationProvider dateAdapter={AdapterDateFns} >
-               <Labels> <span>Check-In</span>
-                <span>Check-In</span></Labels>
-            <DateRangePicker
-            startText="date in"
-            endText="date out"
-            value={value}
-        
-             onChange={(newValue) => {
-           setValue(newValue);
-            }}
-            renderInput={(startProps, endProps) => (
-           <React.Fragment>
-            <TextField {...startProps} />
-            <Box sx={{ mx: 0.5 }}>  </Box>
-            <TextField {...endProps} />
-              </React.Fragment>
-            )}
-            />
-            </LocalizationProvider>
-            </Checks>
-
-            <Guest>Guest</Guest>
-            {/* <Combobox
-              initialSelectedItem={{ label: 'Banana' }}
-              items={[{ label: 'Banana' }, { label: 'Pear' }, { label: 'Kiwi' }]}
-              itemToString={item => (item ? item.label : '')}
-              onChange={selected => console.log(selected)}
-              style={{background: '', width: '316px', height: '44px', border: 'none', paddingBottom: '44px'}}
-            /> */}
-            <Select>
-                <Option>2 Adults, 1 Children</Option>
-                <Option>3 Adults, 2 Children</Option>
-                <Option>4 Adults, 1 Children</Option>
-                <Option>2 Adults, 6 Children</Option>
-                <Option>5 Adults, 1 Children</Option>
-                <Option>8 Adults, 4 Children</Option>
-            </Select>
-
-            <Features>
-                <Guest>Extra Features</Guest>
-                <Check>  <Checkbox style={{color: 'red'}} label="Allow to bring pet" checked={checked} onChange={e => setChecked(e.target.checked)}/> <Price>$13</Price></Check>
-                <Check>  <Checkbox label="Breakfast a day per person" checked={checked1} onChange={e => setChecked1(e.target.checked)}/> <Price>$10</Price></Check>
-                <Check>  <Checkbox label="Parking a day" checked={checked2} onChange={e => setChecked2(e.target.checked)}/> <Price>$6</Price></Check>
-                <Check>  <Checkbox label="Extra pillow" checked={checked3} onChange={e => setChecked3(e.target.checked)}/> <Price>Free</Price></Check>
-            </Features>
-
-            <PriceSection>
-                <Guest>Price</Guest>
-
-                <CardPrice>
-                    <Text><span>1 Nights</span> <span>$500</span></Text>
-                    <Text><span>Discount 20%</span> <span>$200</span></Text>
-                    <Text><span>Breakfast a day per person</span> <span>$10</span></Text>
-                    <Text><span>Service fee</span> <span>$5</span></Text>
-
-                </CardPrice>
-
-                <Total><TotalSpan>Total payment</TotalSpan> <SpanPrices>$300</SpanPrices></Total>
-            </PriceSection>
-
-            <Link to="/payment" ><ButtonPayment>Book Now</ButtonPayment></Link>
-            <SpanText>You will not get charged yet</SpanText>
-           
-
-            </Inner>
-
-            
+          <PricesList>
+              <div style={{display: 'flex', alignItems: 'center'}}> 
+                <Price>$142 </Price>
+                <Night>/{t('night')}</Night>
+              </div>
+              <Price2>$184</Price2>
+              <Discount>20% {t('Discount')}</Discount>
+          </PricesList>
+            <Dates>
+              <div>
+                <Check>{t('check1')}</Check>
+                <Calendar>
+                    <DataInput className='check' type='text' placeholder={t('placeholdermay')} />
+                    <CalIcon className='icon-calendar'></CalIcon>
+                </Calendar>
+              </div>
+              <div>
+                <Check>{t('check2')}</Check>
+                <Calendar>
+                    <DataInput className='check' type='text' placeholder={t('placeholdermay')}/>
+                    <CalIcon className='icon-calendar'></CalIcon>
+                </Calendar>
+              </div>
+            </Dates>
+            <Guess>
+                <CardsName>{t('cardsName')}</CardsName>
+                <GuestInput type='text' placeholder='2 Adults, 1 Children'/>
+                <BottomIcon className='icon-bottom'></BottomIcon>
+            </Guess>
+            <CardsName>{t('cardsName2')}</CardsName>
+            <Row>
+              <Chexbox>
+                <InputCheck type="checkbox" id="check3"/>
+                <Label htmlFor=''>{t('labelAllow')}</Label>
+              </Chexbox>
+              <Span>$13</Span>
+            </Row>
+            <Row>
+              <Chexbox>
+                <InputCheck type="checkbox" id="check3"/>
+                <Label htmlFor=''>{t('labelbr')}</Label>
+              </Chexbox>
+              <Span>$10</Span>
+            </Row>
+            <Row>
+              <Chexbox>
+                <InputCheck type="checkbox" id="check3"/>
+                <Label htmlFor=''>{t('labelpr')}</Label>
+              </Chexbox>
+              <Span>$6</Span>
+            </Row>
+            <Row>
+              <Chexbox>
+                <InputCheck type="checkbox" id="check3"/>
+                <Label htmlFor=''>{t('labelex')}</Label>
+              </Chexbox>
+              <Span>{t('spanfree')}</Span>
+            </Row>
+            <div>
+              <CardsName>{t('cardsName3')}</CardsName>
+              <PricesLists>
+                  <Row><PriceText>1 {t('priceText1')}</PriceText><Span2>$500</Span2></Row>
+                  <Row><PriceText>{t('priceText2')}</PriceText><Span2>$200</Span2></Row>
+                  <Row><PriceText>{t('priceText3')}</PriceText><Span2>$10</Span2></Row>
+                  <Row><PriceText>{t('priceText4')}</PriceText><Span2>$5</Span2></Row>
+              </PricesLists>
+            </div>
+            <Row>
+                <Total>{t('total')}</Total>
+                <Span3>$300</Span3>
+            </Row>
+            <BookNow>
+              <Btn  to={`/payment`}>{t('bookNow')}</Btn>
+              <Charged>{t('charged')}</Charged>
+            </BookNow>
         </Cards>
+
     )
 }
 
-export default Card
+export default Card;

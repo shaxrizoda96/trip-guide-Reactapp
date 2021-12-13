@@ -1,283 +1,319 @@
 import React from 'react'
 import styled from 'styled-components'
-import Card1 from '../../img/card1.jpg'
-import Card2 from '../../img/card2.jpg'
-import {Link } from 'react-router-dom'
+import {useTranslation} from 'react-i18next'
+import {Navigate, useNavigate } from "react-router-dom";
 
-const Div = styled.div`
-margin-left: 60px;
+const PaymentsLeft = styled.section`
+max-width: 60%;
 `
-
-const Title = styled.h2`
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
+const Confirm = styled.h2`
 font-size: 40px;
+font-weight: 700;
 line-height: 60px;
 letter-spacing: -0.005em;
-padding-bottom: 24px;
-color: #23262F;
+margin: 48px 0px 66px 0px;
+color: ${(props) => props.theme.confirmColor};
+border-bottom: 1px solid ${(props) => props.theme.priceBg};
 `
-const Line = styled.div`
-height: 2px;
-width: 494px;
-background: #F4F5F6;
-margin-bottom: 40px;
-`
-const Tour = styled.div`
-width: 470px;
-padding-bottom: 20px;
 
-`
-const TourTitle = styled.div`
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
+const YourTour = styled.h3`
 font-size: 34px;
+font-weight: 700;
 line-height: 44px;
 letter-spacing: -0.005em;
-padding-bottom: 30px;
-color: #141416;
+margin: 40px 22px;
+color: ${(props) => props.theme.yourtour};
 `
-const Input = styled.input`
-height: 64px;
-outline: none;
-border: none;
-background: #F4F4F6;
+
+const ToursInputs = styled.div`
+position: relative;
+background: ${(props) => props.theme.priceBg};
 border-radius: 15px;
 width: 470px;
-padding:  12px 20px 0 20px;
+padding: 7px 20px;
+margin-bottom: 20px;
 `
-const Label = styled.label`
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
+const InputName = styled.h4`
 font-size: 16px;
+font-weight: 500;
 line-height: 24px;
-color: #141416;
+color:${(props) => props.theme.inputNAme};
+
+`
+
+const Input = styled.input`
+border: none;
+outline: none;
+background:${(props) => props.theme.priceBg};
+`
+
+const PenIcon = styled.i`
+color: #84878B;
+font-size: 20px;
 position: absolute;
-right: 90%;
-/* top: 3%; */
-
+top: 20px;
+right: 20px;
 `
-const InputWrapper = styled.div`
+const CreaditCard = styled.div`
+display: flex;
+align-items: center;
 position: relative;
-width: 470px;
-padding-bottom: 20px;
-
+border-bottom: 2px solid${(props) => props.theme.priceBg};
+padding-bottom: 30px;
+width: 525px;
 `
-const CreditCard = styled.div`
-
+const Cards = styled.div`
+background: rgba(47, 128, 237, 0.05);
+opacity: 0.67;
+box-shadow: 0px 3px 24px rgba(0, 0, 0, 0.1);
+border-radius: 6px;
+padding: 4px 27px;
+border: 0.5px solid #145CE6;
+margin-right: 11px;
 `
-const CardTitle = styled.div`
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 34px;
-line-height: 44px;
-letter-spacing: -0.005em;
-color: #141416;
-padding-bottom: 20px;
+const CardImg = styled.img`
+position: absolute;
+top: -3px;
+left: 85px;
 `
-const Images = styled.div`
-width: 417px;
-height: 51px;
-border: 2px solid red;
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-bottom: 30px;
-`
-const Image = styled.img`
-border: 2px solid blue;
-width: 96.01px;
-height: 48.53px;
-
-`
-const CardNumber = styled.form`
-
-`
-const Numbers = styled.div`
-display: flex;
-flex-direction: column;
-margin-bottom: 19px;
-
-`
-const CardNumTitle = styled.label`
-font-family: DM Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 24px;
-color: #353945;
-padding-bottom: 12px;
-`
-const NumInput = styled.input`
-background: #F4F5F6;
-border: 1px solid #878CFF;
+const CardsPay = styled.div`
+background: ${(props) => props.theme.cardSponsorColor};
+border: 0.5px solid${(props) => props.theme.sponsorBorder};
 box-sizing: border-box;
-border-radius: 10px;
-border: none;
-outline: none;
-width: 471px;
-height: 50px;
-padding: 13px 20px;
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 24px;
-color: #4F4F4F;
+border-radius: 6px;
+padding: 12px;
+width: 96px;
+height: 48px;
+text-align: center;
+margin-right: 11px;
 `
-const BottomNum = styled.div`
-display: flex;
-padding-bottom: 18px;
-`
-const Save = styled.div`
-display: flex;
-align-items: center;
-padding-bottom: 41px;
-`
-const CheckLab = styled.label`
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 27px;
-color: #4F4F4F;
-`
-const Checkbox = styled.input`
-width: 24.01px;
-height: 23.95px;
-margin-right: 12px;
-`
-const Button = styled.button`
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 27px;
-color: #FFFFFF;
-padding: 11.5px 20px;
-background: #3B71FE;
-border-radius: 36px;
-border: none;
-outline: none;
-cursor : pointer;
-`
-const CardImages = styled.div`
-display: flex;
-align-items: center;
-padding-bottom: 40px;
-`
-const CardImage2 = styled.img`
-width: 335px;
-/* border: 2px solid red; */
-height: 162px;
-margin-right: 20px;
-border-radius: 20px;
-`
-const CardImage = styled.img`
-width: 335px;
-/* border: 2px solid red; */
-height: 162px;
-border-radius: 20px;
+const CardsPayvisa = styled.div`
+background: ${(props) => props.theme.cardSponsorColor};
+border: 0.5px solid ${(props) => props.theme.sponsorBorder};
+box-sizing: border-box;
+border-radius: 6px;
+padding: 17px;
+width: 96px;
+height: 48px;
+text-align: center;
+margin-right: 11px;
 
 `
-const CVC1 = styled.div`
+const CardsPayamerican = styled.div`
+background: ${(props) => props.theme.cardSponsorColor};
+border: 0.5px solid${(props) => props.theme.sponsorBorder};
+box-sizing: border-box;
+border-radius: 6px;
+padding: 10px;
+width: 96px;
+height: 48px;
+text-align: center;
+margin-right: 11px;
+display: ${(props) => props.theme.american};
+`
+const PlasticCard = styled.div`
 display: flex;
-flex-direction: column;
-padding-right: 43px;
+margin: 52px 0px 40px 0px;
+`
+const CardsSize = styled.div`
+background: #CED9FD;
+border-radius: 20px;
+width:  400px;
+padding: 27px;
+margin-right: 20px;
+`
+
+const CardsSize2 = styled.div`
+border-radius: 20px;
+width: 400px;
+padding: 27px;
+background: #BDDBA6;
+`
+const LogoCard = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+`
+const UnionIcon = styled.i`
+font-size: 28px;
+`
+
+const CardNumber = styled.p`
+font-size: 16px;
+font-weight: 500;
+line-height: 30px;
+letter-spacing: -0.02em;
+color: #3D4852;
+`
+
+const Marka = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+`
+
+const NameCard = styled.span`
+font-size: 16px;
+font-weight: 500;
+line-height: 30px;
+letter-spacing: -0.02em;
+color: #3D4852;
+`
+
+const AboutCard = styled.h5`
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+margin-bottom: 15px;
+color:${(props) => props.theme.textsColor};
+`
+
+const DatesCard = styled.div`
+display: flex;
+`
+
+const CardInput = styled.div`
+position: relative;
+width: 471px;
+margin: 17px 0px 21px 0px;
+`
+const CardNumbders = styled.input`
+border: 1px solid #878CFF;
+background: ${(props) => props.theme.cardNumbders};
+padding: 13px 20px;
+border-radius: 10px;
+width: 471px;
+`
+
+const CardsIcon = styled.i`
+color: #878CFF;
+position: absolute;
+top: 15px; 
+right: 17px;
 `
 const CVC = styled.div`
-display: flex;
-flex-direction: column;
+position: relative;
 `
 const DateInput = styled.input`
-background: #F4F5F6;
-border: 2px solid #EAEAEA;
+background: ${(props) => props.theme.dateinputColor};
+border: 2px solid ${(props) => props.theme.borderInput};
 box-sizing: border-box;
 border-radius: 10px;
-width: 214px;
-height: 50px;
 padding: 13px 20px;
-outline: none;
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 24px;
-color: #4F4F4F;
+margin-right: 20px;
 `
-const Date = styled.div`flex-direction
+
+const PasswordIc = styled.i`
+color: #4F4F4F;
+font-size: 10px;
+position: absolute;
+bottom: 20px; 
+left: 30px;
+`
+
+const Chexbox= styled.div`
+margin-top: 18px;
+`
+const ChecLabel = styled.label`
+font-family: Roboto;
+font-size: 16px;
+font-weight: 500;
+line-height: 27px;
+color: ${(props) => props.theme.textsColor};
+margin-left: 11px;
+`
+const CardBtn = styled.button`
+font-family: Roboto;
+font-size: 18px;
+font-weight: 500;
+line-height: 27px;
+color: #FFFFFF;
+background: #3B71FE;
+padding: 11px 20px;
+border-radius: 36px;
+border: none;
+margin: 34px 0px 120px 0px; 
+
 `
 const PaymentLeft = () => {
+
+    const {t} = useTranslation();
+    let History = useNavigate()
+    const hundleSubmit = (el)=>{
+        el.preventDefault()
+        History('/congrat')
+      }
     return (
-        <Div>
-            <Title>Confirm your Book</Title>
-            <Line></Line>
-            <Tour>
-                <TourTitle>Your tour</TourTitle>
-
-                <InputWrapper>
-                <Input/>
-                <Label>Date</Label>
-                </InputWrapper>
-
-                <InputWrapper>
-                <Input/>
-                <Label>Traveller</Label>
-               </InputWrapper>
-              
-            </Tour>
-
-            <CreditCard>
-                <CardTitle>Creadit Cards</CardTitle>
-                <Images>
-                    <Image src="" alt=""/>
-                    <Image src="" alt=""/>
-                    <Image src="" alt=""/>
-                    <Image src="" alt=""/>
-                </Images>
-                <Line></Line>
-
-                <CardImages>
-                    <CardImage2 src={Card1} alt=""/>
-                    <CardImage src={Card2} alt=""/>
-                </CardImages>
-            </CreditCard>
-
-            <CardNumber>
-                <Numbers>
-                <CardNumTitle htmlFor="card">Card Number</CardNumTitle>
-               <NumInput id="card" type="text" placeholder="5884 6241 4444 3333"/>
-               </Numbers>
-
-               <BottomNum>
-
-                    <CVC1>
-                     <CardNumTitle htmlFor="date">Expiry Date</CardNumTitle>
-                    <DateInput id="date" type="text" placeholder="MM / YY"/>
-                    </CVC1>
-
-                    <CVC>
-                     <CardNumTitle htmlFor="cv">CVC/CVV</CardNumTitle>
-                    <DateInput id="cv" type="text" placeholder="****"/>
-                    </CVC>
-
-                    
-                </BottomNum>
-
-                <Save>
-                    <Checkbox id="save" type="checkbox"/>
-                    <CheckLab htmlFor="save">Save Card</CheckLab>
-                    
-                 </Save>
-                    <Link to="/congrat"><Button type="submit">Confirm and reserve</Button></Link>
-
-            </CardNumber>
-            
-        </Div>
+        <PaymentsLeft>
+            <Confirm>{t('confirm')}</Confirm>
+            <YourTour>{t('yourTour1')}</YourTour>
+            <ToursInputs>
+                <InputName>{t('inputNamedata')}</InputName>
+                <Input type='text' placeholder={t('placeholderjune')} />
+                <PenIcon className='icon-pen'/>
+            </ToursInputs>
+            <ToursInputs>
+                <InputName>{t('inputName')} </InputName>
+                <Input type='text' placeholder={t('placeholderpas')} />
+                <PenIcon className='icon-pen'/>
+            </ToursInputs>
+            <YourTour>{t('yourTour2')}</YourTour>
+            <CreaditCard>
+                <Cards><img src="/assets/2circle.svg" alt="circle" /></Cards>
+                <CardImg src='/assets/check.svg'/>
+                <CardsPay><img src="/assets/paypal.svg" alt="paypal" /></CardsPay>
+                <CardsPayvisa><img src="/assets/visacard.png" alt="visa" /></CardsPayvisa>
+                <CardsPayamerican><img src="/assets/american.svg" alt="american" /></CardsPayamerican>
+            </CreaditCard>
+            <PlasticCard>
+                <CardsSize>
+                    <LogoCard>
+                        <UnionIcon className='icon-unioncard'/>
+                        <img src="/assets/three.svg" alt="" />
+                    </LogoCard>
+                    <CardNumber>8948   xxxx  xxxx  7894</CardNumber>
+                    <Marka>
+                        <NameCard>{t('nameCard')}</NameCard>
+                        <img src="/assets/2circle.svg" alt="" />
+                    </Marka>
+                </CardsSize>
+                <CardsSize2>
+                    <LogoCard>
+                        <UnionIcon className='icon-unioncard'/>
+                        <img src="/assets/three.svg" alt="" />
+                    </LogoCard>
+                    <CardNumber>8948   xxxx  xxxx  7894</CardNumber>
+                    <Marka>
+                        <NameCard>{t('nameCard')}</NameCard>
+                        <img src="/assets/visacard.png" alt="" />
+                    </Marka>
+                </CardsSize2>
+            </PlasticCard>
+                <div>
+                    <AboutCard>{t('aboutCard')}</AboutCard>
+                    <CardInput>
+                        <CardNumbders type='text' placeholder='5884 6241 4444 3333'/>
+                        <CardsIcon className='icon-ptichka'></CardsIcon>
+                    </CardInput>
+                </div>
+            <DatesCard>
+                <div>
+                    <AboutCard>{t('aboutCard2')}</AboutCard>
+                    <DateInput type='text' placeholder='MM / YY'/>
+                
+                </div>
+                <CVC>
+                    <AboutCard>{t('aboutCard3')}</AboutCard>
+                    <DateInput type='text' />
+                    <PasswordIc className='icon-password'></PasswordIc>
+                </CVC>
+            </DatesCard>
+            <Chexbox>
+                <input type="checkbox" id="check3"/>
+                <ChecLabel htmlFor=''>{t('checLabel')}</ChecLabel>
+            </Chexbox>
+                <CardBtn onClick={hundleSubmit}>{t('CardBtn')}</CardBtn>
+    </PaymentsLeft>
     )
 }
 

@@ -3,16 +3,20 @@ import { ThemeContext, ThemeProvider } from "styled-components";
 import Home from './pages/Home';
 import Details from './pages/Details'
 import HotelList from "./pages/HotelList";
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { DarkTheme, LightTheme } from "./styled";
 import Header from "./components/Header";
 import 'antd/dist/antd.css';
 import 'swiper/swiper.min.css';
-import FooterCard from "./components/MyComponents/FooterCard";
+import Footer from "./components/Footer";
 import Payment from "./pages/Payment";
 import Congrat from "./pages/Congrat";
+import Subscribe from "./components/Subscribe";
+import NotFound from "./pages/NotFound";
+
 
 const App = () => {
+
  const [theme, toggleTheme] = useState('light');
 
  
@@ -21,29 +25,18 @@ const App = () => {
       <ThemeProvider theme={theme === 'light' ? LightTheme : DarkTheme}>
         <div className="App">
           <BrowserRouter>
+          <Suspense fallback= "loading">
             <Header/>
             <Routes>
               <Route path='/' element={<Home/>}/>
-            </Routes>
-
-            <Routes>
               <Route path='/details' element={<Details/>}/>
-            </Routes>
-
-            <Routes>
-              <Route path='/list' element={<HotelList/>}/>
-            </Routes>
-
-            <Routes>
+              <Route path='/list/:id' element={<HotelList/>}/>
               <Route path='/payment' element={<Payment/>}/>
-            </Routes>
-
-            <Routes>
               <Route path='/congrat' element={<Congrat/>}/>
+              <Route path='*' element={<NotFound/>}/>
             </Routes>
-
-            <FooterCard/>
-            
+            <Footer/>
+            </Suspense>
           </BrowserRouter>
         </div>
       </ThemeProvider>

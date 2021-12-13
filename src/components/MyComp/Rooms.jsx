@@ -1,174 +1,179 @@
-import React from 'react'
-import styled from 'styled-components'
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import styled from 'styled-components';
+import {useTranslation} from 'react-i18next';
 
-const Wrapper = styled.div`
-padding-right: 89px;
+const RoomsPage = styled.section`
+max-width: 60%;
 `
-const Title = styled.div`
-font-family: DM Sans;
-font-style: normal;
-font-weight: bold;
+const LuxRooms = styled.h2`
 font-size: 40px;
+font-weight: 700;
 line-height: 60px;
-color: #23262F;
-padding: 10px 0;
+letter-spacing: -0.005em;
+color: ${(props) => props.theme.exlusiveroomColor};
+margin-bottom: 0;
 `
-const Span = styled.span`
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
+const HotelName = styled.p`
 font-size: 24px;
-line-height: 36px;
-color: #777E91;
-padding-bottom: 22px;
-
-`
-const SpanBottom = styled.div`
-width: 742px;
-border-bottom:  2px solid #E6E8EC;
-
-`
-
-const Hotel = styled.div`
-width: 742px;
-border-bottom: 2px solid  #E6E8EC;
-
-`
-const HotelTitle = styled.div`
-  font-family: DM Sans;
-font-style: normal;
 font-weight: 500;
-font-size: 24px;
 line-height: 36px;
-color: #23262F; 
+letter-spacing: 0em;
+color:${(props) => props.theme.zuichcolor};
+margin-top: 10px;
+padding-bottom: 20px;
+border-bottom: 1px solid ${(props) => props.theme.priceBg};
+`
+const LuxText = styled.p`
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px;
+color:${(props) => props.theme.exclusiveColor};
+margin-top: 30px;
+`
 
+const HotelFunction = styled.h3`
+font-size: 24px;
+font-weight: 500;
+line-height: 36px;
+color: ${(props) => props.theme.feature};
+margin-bottom: 10px;
+margin-top: 50px;
 `
-const Ul = styled.ul`
-    display: flex;
-    padding: 24px 0 62px 0;
+
+const Hotelservice = styled.div`
+display: flex;
+border-bottom: 1px solid ${(props) => props.theme.priceBg};
+padding-bottom: 50px;
 `
-const LIs = styled.li`
-    font-family: DM Sans;
-font-style: normal;
-font-weight: normal;
+
+const Obligation = styled.p`
 font-size: 16px;
-padding:  0 45px 0 10px;
-line-height: 24px;
-color: #4F4F4F;
-list-style:none;
-`
-const LI = styled.li`
-font-family: DM Sans;
 font-style: normal;
-font-weight: normal;
-font-size: 16px;
+font-weight: 400;
 line-height: 24px;
-list-style: none;
-color: #353945;
-padding: 0 0 26px 16px;
+color: ${(props) => props.theme.featureLicolor};
+margin-right: 40px;
 `
+
+const ObligationIcon = styled.i`
+color: ${(props) => props.theme.exclusiveColor};
+font-size: 18px;
+margin-right: 10px;
+`
+
 const Amenities = styled.div`
-
 display: flex;
-padding-bottom: 31px;
-
+align-items: center;
 `
-const TitleAmenities = styled.div`
-padding: 60px 0 28px 0;
-font-family: DM Sans;
-font-style: normal;
-font-weight: 500;
-font-size: 24px;
-line-height: 36px;
-color: #23262F;
-
-`
-const Ulss = styled.div`
-display: flex;
-flex-direction: column;
-padding-right: 197px;
+const CardService = styled.div`
+margin-right: 190px;
 `
 
-const Uls = styled.div`
-display: flex;
-flex-direction: column;
-`
-const Button = styled.button`
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
+const AmenitiesNames = styled.p`
 font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+color: ${(props) => props.theme.amenitiesColor};
+`
+
+const AmenitiesIcon = styled.i`
+font-size: 18px;
+color: ${(props) => props.theme.exclusiveColor};
+margin-right: 17px;
+`
+
+const MoreBtn = styled.button`
+font-size: 16px;
+font-weight: 500;
 line-height: 19px;
-border: none;
-outline: none;
 color: #FFFFFF;
-padding: 10px 31px ;
 background: #3B71FE;
 border-radius: 47px;
-cursor: pointer;
+padding: 10px 30px;
+border: none;
+margin-top: 47px;
 `
 
-
-
-const Rooms = () => {
+const Tabs = styled.div`
+border-bottom: 1px solid ${(props) => props.theme.priceBg};
+padding-bottom: 10px;
+`
+const TabList = styled.div`
+display: flex;
+position: relative;
+`
+const Tab1 = styled.p`
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+color: #145CE6;
+margin-right: 40px;
+&:after{
+    content: '';
+    position: absolute;
+    height: 2px;
+width: 81px;
+border-radius: 12px;
+background: #145CE6;
+bottom: -10px;
+left: 0;
+z-index: 99;
+}
+`
+const Tab = styled.p`
+font-size: 16px;
+font-weight: 500;
+line-height: 24px;
+color: #23262F;
+margin-right: 40px;
+`
+const Rooms = ()=>{
+    const {t} = useTranslation();
     return (
-        <Wrapper>
-            <SpanBottom>
-            <Title>Exclusive room in house</Title>
-            <Span>Zuich, Switzerland</Span>
-            </SpanBottom>
+        <RoomsPage>
 
-            <Tab>
+            <LuxRooms>{t('exclusiveroom')}</LuxRooms>
+            <HotelName>{t('hotelName')}</HotelName>
+             <Tabs>
+                     <TabList >
+                        <Tab1>{t('tab1')}</Tab1>
+                        <Tab >{t('tab2')}</Tab>
+                        <Tab >{t('tab3')}</Tab>
+                        <Tab>{t('tab4')}</Tab>
+                    </TabList>
+             </Tabs>
+             <LuxText>{t('exclusiveText')}</LuxText>
+             <div>
+                 <HotelFunction>{t('hotelfeadtures')}</HotelFunction>
+                 <Hotelservice>
+                     <Obligation><ObligationIcon className='icon-wifitop'/>{t('features1')}</Obligation>
+                     <Obligation><ObligationIcon className='icon-bath'/>{t('features2')}</Obligation>
+                     <Obligation><ObligationIcon className='icon-food'/>{t('features3')}</Obligation>
+                     <Obligation><ObligationIcon className='icon-bed'/> {t('features4')}</Obligation>
+                     <Obligation><ObligationIcon className='icon-krug'/>{t('featucres5')}</Obligation>
+                 </Hotelservice>
+             </div>
+             <div>
+                 <HotelFunction>{t('amenities')}</HotelFunction>
+                 <Amenities>
 
-            </Tab>
-
-            <Hotel>
-                <HotelTitle>Hotel features</HotelTitle>
-                <Ul >
-                    <LIs>Wi-fi</LIs>
-                    <LIs>Bathup</LIs>
-                    <LIs>Breakfast</LIs>
-                    <LIs>Kids bed</LIs>
-                    <LIs>4m*6m</LIs>
-                </Ul>
-            </Hotel>
-
-            <TitleAmenities>Amenities</TitleAmenities>
-            <Amenities>
-               
-
-                <Ulss >
-                    <LI>Free computer</LI>
-                    <LI>Free wifi 24/7</LI>
-                    <LI>Free clean bathroom</LI>
-                    <LI>Free wifi 24/7</LI>
-                 
-                </Ulss>
-
-                <Uls>
-                   
-                    <LI>Free clean bathroom</LI>
-                    <LI>Breakfast included</LI>
-                    <LI>ATM</LI>
-                    <LI>Nearby city</LI>
-                </Uls>
-
-                
-
-            </Amenities>
-            <Button>
-            More details
-            </Button>
-
-
-            
-        </Wrapper>
+                 <CardService>
+                     <AmenitiesNames><AmenitiesIcon className='icon-wifitop'/>{t('amenitiesNames1')}</AmenitiesNames>
+                     <AmenitiesNames><AmenitiesIcon className='icon-komp'/>{t('amenitiesNames2')}</AmenitiesNames>
+                     <AmenitiesNames><AmenitiesIcon className='icon-klavish'/>{t('amenitiesNames1')}</AmenitiesNames>
+                     <AmenitiesNames><AmenitiesIcon className='icon-televizor'/>{t('amenitiesNames1')}</AmenitiesNames>
+                 </CardService>
+                 <div>
+                     <AmenitiesNames><AmenitiesIcon className='icon-bath'/>{t('amenitiesNames5')}</AmenitiesNames>
+                     <AmenitiesNames><AmenitiesIcon className='icon-pizza'/>{t('amenitiesNames6')} </AmenitiesNames>
+                     <AmenitiesNames><AmenitiesIcon className='icon-klavish'/>{t('amenitiesNames7')}</AmenitiesNames>
+                     <AmenitiesNames><AmenitiesIcon className='icon-apartment'/>{t('amenitiesNames8')}</AmenitiesNames>
+                 </div>
+                 </Amenities>
+             </div>
+             <MoreBtn>{t('moreBtn')}</MoreBtn>
+        </RoomsPage>
     )
 }
 
-export default Rooms
+export default Rooms;

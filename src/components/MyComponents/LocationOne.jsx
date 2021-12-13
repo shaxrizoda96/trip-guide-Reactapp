@@ -69,46 +69,36 @@ const LocationOne = () => {
     
       <form style={{position:'relative', display: 'flex'}}>
         <div><Label htmlFor="in">Leaving from</Label>
-        <AutoComplete 
-        id="in"  
-        type="search" 
-        options={options}
-        filterOption={(inputValue, option) =>
-           option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}
-        /></div>
+            <AutoComplete 
+                id="in"  
+                type="search" 
+                options={options}
+                filterOption={(inputValue, option) =>
+                  option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1}/>
+        </div>
         
 
 
 
         <LocalizationProvider dateAdapter={AdapterDateFns} style={{border:'none', backgroundColor:'red'}}>
-        <DateRangePicker
-        startText="Check-in"
-        endText="Check-out"
-        value={value}
-        
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
-        renderInput={(startProps, endProps) => (
-          <React.Fragment>
-            <TextField {...startProps} />
-            <Box sx={{ mx: 0.5 }}>  </Box>
-            <TextField {...endProps} />
-          </React.Fragment>
-        )}
-        />
-       </LocalizationProvider>
+          <DateRangePicker
+              startText="Check-in" endText="Check-out" value={value} onChange={(newValue) => {
+                setValue(newValue);
+              }}
+              renderInput={(startProps, endProps) => (
+                <React.Fragment>
+                    <TextField {...startProps} />
+                      <Box sx={{ mx: 0.5 }}>  </Box>
+                    <TextField {...endProps} />
+                </React.Fragment>
+              )}/>
+        </LocalizationProvider>
 
        <Button type="search">Search</Button>
-
-          
       </form>
   
     </>
   )
-    
-  
-
 };
 
 export default LocationOne;
